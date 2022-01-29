@@ -2,11 +2,13 @@ package com.algaworks.algafood.client;
 
 import org.springframework.web.client.RestTemplate;
 
+import com.algaworks.algafood.client.api.ClientApiException;
 import com.algaworks.algafood.client.api.RestauranteClient;
 
 public class ListagemRestaurantesMain {
 
 	public static void main(String[] args) {
+		try {
 		String baseUrl = "http://127.0.0.1:8080";
 		RestTemplate restTemplate = new RestTemplate();
 		
@@ -14,6 +16,14 @@ public class ListagemRestaurantesMain {
 		
 		restauranteClient.listar().stream()
 			.forEach(restaurante -> System.out.println(restaurante));
+		} catch (ClientApiException e) {
+			if (e.getProblem() != null) {
+				System.out.println(e.getProblem().getUserMessage());
+			} else {
+				System.out.println("Erro desconhecido");
+				e.printStackTrace();
+			}
+		}
 		
 	}
 
