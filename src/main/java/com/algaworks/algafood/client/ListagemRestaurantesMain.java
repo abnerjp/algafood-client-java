@@ -9,13 +9,13 @@ public class ListagemRestaurantesMain {
 
 	public static void main(String[] args) {
 		try {
-		String baseUrl = "http://127.0.0.1:8080";
-		RestTemplate restTemplate = new RestTemplate();
-		
-		RestauranteClient restauranteClient = new RestauranteClient(restTemplate, baseUrl);
-		
-		restauranteClient.listar().stream()
-			.forEach(restaurante -> System.out.println(restaurante));
+			String baseUrl = "http://127.0.0.1:8080";
+			RestTemplate restTemplate = new RestTemplate();
+			RestauranteClient restauranteClient = 
+					new RestauranteClient(restTemplate, baseUrl);
+			
+			restauranteClient.listar().stream()
+				.forEach(restaurante -> System.out.println(restaurante));
 		} catch (ClientApiException e) {
 			if (e.getProblem() != null) {
 				System.out.println(e.getProblem().getUserMessage());
